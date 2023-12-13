@@ -1,5 +1,4 @@
 ﻿using Flunt.Validations;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace IWantApp.Domain.Products;
 
@@ -8,13 +7,20 @@ public class Category: Entity
     public string Name { get; set; }
  
     public bool Active { get; set; }
-    public Category(string name) {
+    
+    public Category(string name, string createdBy, string editedBy) {
         var contract = new Contract<Category>()
-            .IsNotNullOrEmpty(name, "Name ´e obrigatorio");
-            AddNotifications(contract);
+            .IsNotNullOrEmpty(name, "Name ´e obrigatorio")
+            .IsNotNullOrEmpty(createdBy, "createdBy")
+            .IsNotNullOrEmpty(editedBy, "editedBy");
+        AddNotifications(contract);
 
         Name = name;
         Active = true;
+        CreatedBy = createdBy;
+        EditedBy = editedBy;
+        CreatedOn = DateTime.Now;
+        EditedOn = DateTime.Now;
         
     }
 

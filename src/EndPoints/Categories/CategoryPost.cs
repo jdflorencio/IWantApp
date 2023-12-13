@@ -15,15 +15,8 @@ public class CategoryPost
         {
             return Results.BadRequest("name is invalid");
         }*/
-     
-        var category = new Category(categoryRequest.Name)
-        {
-            Name = categoryRequest.Name,
-            CreatedBy = "Test",
-            CreatedOn = DateTime.Now,
-            EditedBy = "Test",
-            EditedOn = DateTime.Now,
-        };
+
+        var category = new Category(categoryRequest.Name, "Teste", "Test");
 
         if (!category.IsValid)
             return Results.BadRequest(category.Notifications);
