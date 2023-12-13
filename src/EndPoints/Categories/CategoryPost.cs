@@ -11,15 +11,21 @@ public class CategoryPost
 
     public static IResult Action(CategoryRequest categoryRequest, ApplicationDbContext context)
     {
-        /*if (string.IsNullOrEmpty(categoryRequest.Name))
-        {
-            return Results.BadRequest("name is invalid");
-        }*/
+        
 
         var category = new Category(categoryRequest.Name, "Teste", "Test");
 
+        
         if (!category.IsValid)
-            return Results.BadRequest(category.Notifications);
+        {
+            var errors = category.Notifications
+                .GroupBy(g => g.Key)
+                .ToDictionary(g => g.Key, g => g.Select(x => x.Message).ToArray());
+            return Results.ValidationProblem(errors);
+
+        }
+        
+        return Results.BadRequest(category.Notifications);
 
         context.Categories.Add(category);
         context.SaveChanges();
