@@ -14,6 +14,8 @@ public class ApplicationDbContext : IdentityDbContext<IdentityUser>
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        base.OnModelCreating(builder); // chamando a classe PAI seja chamada
+
         builder.Ignore<Notification>();
 
         builder.Entity<Product>()
