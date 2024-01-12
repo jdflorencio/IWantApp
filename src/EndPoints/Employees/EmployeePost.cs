@@ -21,10 +21,7 @@ public class EmployeePost
         if (!result.Succeeded)
         {
             return Results.BadRequest(result.Errors.First());
-        }
-
-       
-
+        }     
 
         return Results.Created($"/employee/{user.Id}", user.Id);
     }
