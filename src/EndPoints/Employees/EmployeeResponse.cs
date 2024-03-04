@@ -1,4 +1,5 @@
-﻿namespace IWantApp.EndPoints.Employees;
+﻿
+namespace IWantApp.EndPoints.Employees;
 
-public record EmployeeResponse(string Email, string Name);
+public record EmployeeResponse(string Name, string Email);
 

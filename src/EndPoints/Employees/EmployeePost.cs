@@ -7,7 +7,7 @@ namespace IWantApp.EndPoints.Employees;
 
 public class EmployeePost
 {
-    public static string Template => "/employee";
+    public static string Template => "/employees";
 
     public static string[] Methods => new string[] { HttpMethod.Post.ToString() };
 
@@ -15,8 +15,8 @@ public class EmployeePost
 
     public static IResult Action(EmployeeRequest employeeRequest, UserManager<IdentityUser> userManager)
     {
-        var user = new IdentityUser { UserName = employeeRequest.Email, Email = employeeRequest.Email };
-        var result = userManager.CreateAsync(user, employeeRequest.Password).Result;
+        var user = new IdentityUser { UserName = employeeRequest.Name, Email = employeeRequest.Email };
+        var result = userManager.CreateAsync(user, employeeRequest.Password).Result;//para salvar esse usuario
 
         if (!result.Succeeded)
             return Results.ValidationProblem(result.Errors.ConvertToProblemDetails());
