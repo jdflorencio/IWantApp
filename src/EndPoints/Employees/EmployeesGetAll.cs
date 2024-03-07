@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using IWantApp.Infra.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
 
@@ -32,22 +33,8 @@ public class EmployeesGetAll
 
     }*/
 
-    public static IResult Action(int? page, int? rows, IConfiguration configuration)
+    public static IResult Action(int? page, int? rows, QueryAllUsersWitchClaimName query)
     {
-        if (page == null || page < 1) page = 1;
-        if (rows == null || rows <= 0) rows = 10;
-
-        var db = new SqlConnection(configuration["ConnectionString:IWantDb"]);
-        var query = @"
-        SELECT  
-            anuc.ClaimValue as Name,
-            anu.Email as Email
-        FROM AspNetUsers anu  
-        INNER JOIN AspNetUserClaims anuc on anu.Id = anuc.UserId and ClaimType = 'Name'
-        ORDER BY Name -- Corrigido para 'Name'
-        OFFSET (@page -1 ) * @rows ROWS FETCH NEXT @rows ROWS ONLY";
-        var employees = db.Query<EmployeeResponse>(query, new {page, rows});
-        
-        return Results.Ok(employees);
+        return Results.Ok(query.Execute(page, rows));
     }
 }
