@@ -1,5 +1,8 @@
 ﻿
 namespace IWantApp.EndPoints.Employees;
 
-public record EmployeeResponse(string Name, string Email);
-
+public class EmployeeResponse
+{
+    public string Name { get; set; }
+    public string Email { get; set; }
+}
