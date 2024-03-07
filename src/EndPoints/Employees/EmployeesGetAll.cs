@@ -1,7 +1,7 @@
 ﻿using Dapper;
-using IWantApp.Infra.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.SqlClient;
+using IWantApp.Infra.Data;
 
 namespace IWantApp.EndPoints.Employees;
 
@@ -28,9 +28,7 @@ public class EmployeesGetAll
             employees.Add(new EmployeeResponse(userName, item.Email));
         }
 
-        return Results.Ok(employees);      
-
-
+        return Results.Ok(employees);
     }*/
 
     public static IResult Action(int? page, int? rows, QueryAllUsersWitchClaimName query)
