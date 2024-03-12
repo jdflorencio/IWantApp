@@ -3,6 +3,7 @@ using IWantApp.EndPoints.Employees;
 using IWantApp.EndPoints.Security;
 using IWantApp.Infra.Data;
 using Microsoft.AspNetCore.Identity;
+using static System.Collections.Immutable.ImmutableArray<T>;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSqlServer<ApplicationDbContext>(builder.Configuration["ConnectionString:IWantDb"]);
@@ -13,6 +14,8 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options => {
     options.Password.RequireLowercase = false;
     options.Password.RequiredLength = 3;
 }).AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddAuthorization();
 
 
 // Add services to the container.
