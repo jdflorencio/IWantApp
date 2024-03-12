@@ -2,12 +2,11 @@ using IWantApp.EndPoints.Categories;
 using IWantApp.EndPoints.Employees;
 using IWantApp.EndPoints.Security;
 using IWantApp.Infra.Data;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using static System.Collections.Immutable.ImmutableArray<T>;
+
 
 internal class Program
 {
@@ -40,19 +39,18 @@ internal class Program
                 ValidateIssuerSigningKey = true,
                 ValidAudience = builder.Configuration["JwtBearerTokenSettings:Audience"],
                 ValidIssuer = builder.Configuration["JwtBearerTokenSettings:Issuer"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["SecretKey"]))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtBearerTokenSettings:SecretKey"]))
             };
         });
 
-
-
-
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
+        builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
