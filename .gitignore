@@ -348,3 +348,18 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+
+# Arquivos e diretórios específicos do Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Arquivos de cache de tempo de design do Visual Studio
+**/.dtbcache.v2
+**/.futdcache.v2
+
+# Arquivos de avaliação de projetos do Visual Studio
+**/.vs/ProjectEvaluation/*.bin
